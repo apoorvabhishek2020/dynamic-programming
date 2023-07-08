@@ -36,8 +36,43 @@ def fibonacci_tabulation(n: int):
             dp.append(dp[index-1] + dp[index-2])
     return dp[n]
 
+def fibonacci_best(n: int):
+    '''This function is the best for fibonacci series.'''
+    pre = 0
+    post = 1
+    if(n<=1):
+        return n
+    else:
+        for i in range(2, n+1):
+            fib = pre + post
+            pre = post
+            post = fib
+        return post
+
+
 if(__name__=='__main__'):
     n = int(input("Enter the position of element you want (Starting from 0) : "))
-    print(fibonacci_naive(n))
-    print(fibonacci_memoisation(n))
-    print(fibonacci_tabulation(n))
+    import time
+    start = time.perf_counter()
+    value = fibonacci_best(n)
+    end = time.perf_counter()
+    et1 = end - start
+    print(f'{value} is obtained in {et1} seconds by Best Algorithm')
+    start = time.perf_counter()
+    value = fibonacci_memoisation(n)
+    end = time.perf_counter()
+    et2 = end - start
+    print(f'{value} is obtained in {et2} seconds by Memoisation Algorithm')
+    start = time.perf_counter()
+    value = fibonacci_tabulation(n)
+    end = time.perf_counter()
+    et3 = end - start
+    print(f'{value} is obtained in {et3} seconds by Tabulation Algorithm')
+    start = time.perf_counter()
+    value = fibonacci_naive(n)
+    end = time.perf_counter()
+    et4 = end - start
+    print(f'{value} is obtained in {et4} seconds by Naive Algorithm')
+    l = [et1, et2, et3, et4]
+    print(sorted(l))
+    print("Thank You")
